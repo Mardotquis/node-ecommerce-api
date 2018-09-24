@@ -1,15 +1,12 @@
-const fs = require('fs');
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
+const fs = require('fs'),
+    express = require('express'),
+    cors = require('cors'),
+    bodyParser = require('body-parser'),
+    _ = require("lodash"),
+    port = 8080,
+    { mongoose, Product } = require("./db/mongoose"),
+    { ObjectId } = require('mongodb');
 
-const port = 8080;
-const { mongoose, Product } = require("./db/mongoose");
-const { ObjectID } = require('mongodb');
-
-
-
-const jsonFile = JSON.parse(fs.readFileSync(__dirname + "/products.json", "utf-8"));
 
 console.log(`PRODUCTS SERVER STARTED, LISTENING ON PORT ${port}`);
 let app = express();
@@ -17,47 +14,36 @@ let app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// app.get("/products", (request, response) => {
-//     response.send(jsonFile.products)
-// })
 
 //ADDING A NEW PRODUCT
 app.post("/products", (request, response) => {
+    const { productId, title, description = "", price, productType, productCategory, productImages, availability, color } = request.body;
     var product = new Product({
-
-        productId: request.body.productId,
-        title: request.body.title,
-        description: request.body.description,
-        price: request.body.price,
-        productType: request.body.productType,
-        productCategory: request.body.productCategory,
-        productImages: request.body.productImages,
-        availability: request.body.availability
-    })
+        productId, title, description, price, productType, productCategory, productImages, availability, color
+    });
 
     product.save()
         .then(
             doc => { response.send(doc) },
-            e => { response.send(e) }
+            e => { response.send(e) },
+
         )
 })
 //GETTING PRODUCTS AND SENDING THEM TO REACT APP
 app.get("/products", (request, response) => {
-    Product.find()
+    Product.find()//.find() is going to fetch this WHOLE collection
         .then(
-            products => { response.send(products) },
+            products => { response.send(products) },//sending the collection back
             e => { response.send(e) }
         )
-})
+});
 //GETTING PRODUCTS BY productId
 app.get("/products/:id", (request, response) => {
     let insertedId = request.params.id;
-    Product.find({
-        productId: insertedId
-    })
+    Product.findById(insertedId)
         .then(
             product => {
-                if (!ObjectID.isValid) {
+                if (!ObjectId.isValid) {
                     return response.send("ID NOT FOUND")
                 }
                 response.send(product)
@@ -67,17 +53,31 @@ app.get("/products/:id", (request, response) => {
 //DELETING PRODUCTS BY productId
 app.delete("/products/:id", (request, response) => {
     let insertedId = request.params.id;
-    Product.findOneAndRemove({
-        productId: insertedId
-    })
+    Product.findByIdAndRemove(insertedId)
         .then(
             product => {
-                if (!insertedId) {
-                    return response.send("ID NOT FOUND")
+                if (!product) {
+                    return response.status(404).send("ID NOT FOUND")
                 }
                 response.send(product)
             }
         ).catch(e => response.status(400).send(e));
-})
+});
+//UPDATE A PRODUCT
+app.put("/products/:id", (request, response) => {
+    let insertedId = request.params.id;
+    let body = _.pick(request.body, ["productId", "title", "description", "price", "productType", "productCategory", "productImages", "availability"]);
+    Product.findByIdAndUpdate(insertedId,
+        { $set: body }, { new: true })//$set is replacing the value on a field with a specified value
+        .then(
+            product => {
+                if (!product) {
+                    return response.status(404).send(e);
+                }
+                response.send(product)
+            }
+        ).catch(e => { response.status(400).send(e) })
+});
 
 app.listen(port);
+
