@@ -14,10 +14,9 @@ let app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-
 //ADDING A NEW PRODUCT
 app.post("/products", (request, response) => {
-    const { productId, title, description = "", price, productType, productCategory, productImages, availability, color } = request.body;
+    const { productId, title, description, price, productType, productCategory, productImages, availability, color } = request.body;
     var product = new Product({
         productId, title, description, price, productType, productCategory, productImages, availability, color
     });
@@ -43,7 +42,7 @@ app.get("/products/:id", (request, response) => {
     Product.findById(insertedId)
         .then(
             product => {
-                if (!ObjectId.isValid) {
+                if (!product) {
                     return response.send("ID NOT FOUND")
                 }
                 response.send(product)
