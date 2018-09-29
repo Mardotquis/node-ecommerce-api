@@ -4,7 +4,7 @@ const fs = require('fs'),
     bodyParser = require('body-parser'),
     _ = require("lodash"),
     port = 8080,
-    { mongoose, Product } = require("./db/mongoose"),
+    { mongoose, Product, Contact } = require("./db/mongoose"),
     { ObjectId } = require('mongodb');
 
 
@@ -13,21 +13,43 @@ let app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 //ADDING A NEW PRODUCT
 app.post("/products", (request, response) => {
-    const { productId, title, description, price, productType, productCategory, productImages, availability, color } = request.body;
+    const { title, description, price, productType, productImages, availability } = request.body;
     var product = new Product({
-        productId, title, description, price, productType, productCategory, productImages, availability, color
+        title, description, price, productType, productImages, availability
     });
-
+    console.log(request.body)
     product.save()
         .then(
-            doc => { response.send(doc) },
+            () => { response.redirect("http://localhost:3000/admin`") },
             e => { response.send(e) },
 
         )
-})
+});
+
+app.post("/contact", (request, response) => {
+    const { customerName, customerEmail, customerPhoneNum, customerMessage } = request.body;
+    let contact = new Contact({ customerName, customerEmail, customerPhoneNum, customerMessage });
+    console.log(request.body);
+    if (!request.body) {
+        return response.status(404).send("NOPE");
+    }
+    contact.save()
+        .then(
+            () => response.redirect("http://localhost:3000/contact"),
+            e => response.send(e)
+        )
+});
+
+app.get("/contact/data", (request, response) => {
+    Contact.find()
+        .then(data => { response.send(data) })
+});
 //GETTING PRODUCTS AND SENDING THEM TO REACT APP
 app.get("/products", (request, response) => {
     Product.find()//.find() is going to fetch this WHOLE collection
@@ -69,10 +91,10 @@ app.put("/products/:id", (request, response) => {
     Product.findByIdAndUpdate(insertedId,
         { $set: body }, { new: true })//$set is replacing the value on a field with a specified value
         .then(
-            product => {
-                if (!product) {
-                    return response.status(404).send(e);
-                }
+            (product) => {
+                // if (!product) {
+                //     return response.status(404).send(e);
+                // }
                 response.send(product)
             }
         ).catch(e => { response.status(400).send(e) })
