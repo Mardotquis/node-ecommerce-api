@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+/* SETTING UP THE CONTACT COLLECTION'S SCHEMA */
+
 let Contact = mongoose.model("Contact", {
 
     customerName: {
