@@ -16,7 +16,12 @@ let Contact = mongoose.model("Contact", {
     }, customerMessage: {
         type: String,
         required: true
-    }
+    },
+    createdDate: {
+        type: Date,
+        default: Date.now
+    },
+
 
 })
 
