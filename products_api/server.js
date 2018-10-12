@@ -1,47 +1,52 @@
 // /* ALL LIBRARYS BEING USED */
-// const express = require('express'),//HELPS CREATE AN EXPRESS API
-//     cors = require('cors'),//ALLOWS CROSS ORGIN REQUESTS
-//     bodyParser = require('body-parser'),//HELPS PARSE THE BODY WHEN DATA IS SUBMITTED
-//     _ = require("lodash"),//USING THE .pick METHOD TO SELECT WHAT I WANT OFF THE OBJECT WHEN DATA IS SUBMITTED
-//     port = 8080,//THE PORT I AM LISTENING/USING
-//     { mongoose, Product, Contact } = require("./db/mongoose");//USING MONGOOSE TO MAKE USING MongoDB EASIER, ALSO GRABBING THE PRODUCT AND CONTACT SCHEMAS/MODELS
+const express = require('express'),//HELPS CREATE AN EXPRESS API
+    cors = require('cors'),//ALLOWS CROSS ORGIN REQUESTS
+    bodyParser = require('body-parser'),//HELPS PARSE THE BODY WHEN DATA IS SUBMITTED
+    _ = require("lodash"),//USING THE .pick METHOD TO SELECT WHAT I WANT OFF THE OBJECT WHEN DATA IS SUBMITTED
+    port = 8080,//THE PORT I AM LISTENING/USING
+     http = require("http"),
+     mysql = require('mysql');
+     const connection = mysql.createConnection({
+        host     : 'road2hire.ninja',
+        user     : 'r2hstudent',
+        password : 'SbFaGzNgGIE8kfP',
+        database : 'mmitchell'
+      });
+    //   r2hstudent
+    //   SbFaGzNgGIE8kfP
 
 
 
-// console.log(`SERVER STARTED, LISTENING ON PORT ${port}`);
-// const app = express();//SETTING UP THE EXPRESS API
+console.log(`SERVER STARTED, LISTENING ON PORT ${port}`);
+const app = express();//SETTING UP THE EXPRESS API
 
-// app.use(cors());
+app.use(cors());
 // //----body-parser is middleware extracts the entire body portion of an incoming request stream and exposes it on REQUEST.BODY----//
-// app.use(bodyParser.json());//HELPS PARSE INCOMING BODY AND USE IT IN API
-// app.use(bodyParser.urlencoded({
-//     extended: true
-// }));//ALLOW YOU TO PARSE FULL OBJECTS AND HELPS READ DATA
+app.use(bodyParser.json());//HELPS PARSE INCOMING BODY AND USE IT IN API
+app.use(bodyParser.urlencoded({
+    extended: true
+}));//ALLOW YOU TO PARSE FULL OBJECTS AND HELPS READ DATA
 
 // //-----------------------------------PRODUCT REQUESTS-----------------------------------//
 
 // //GETTING PRODUCTS AND SENDING THEM TO REACT APP
-// app.get("/products", (request, response) => {
-//     Product.find()//.find() is going to fetch this WHOLE collection
-//         .then(
-//             products => { response.send(products) },//sending the collection back
-//             error => { response.send(error) }
-//         )
-// });
+app.get("/products", (request, response) => {
+//  console.log(request);
+ connection.query('SELECT * from duragsrus_products', (error, results, fields) =>{
+    if (error) throw error;
+    response.send(JSON.stringify(results));
+  });
+});
 
 // //GETTING PRODUCTS BY productId
-// app.get("/products/:id", (request, response) => {
-//     let insertedId = request.params.id;
-//     Product.findById(insertedId)
-//         .then(
-//             product => {
-//                 if (!product) {
-//                     return response.send("ID NOT FOUND")
-//                 }
-//                 response.send(product)
-//             }
-//         ).catch(error => { response.send(error) })
-// });
+app.get("/products/:id", (request, response) => {
+    let insertedId = request.params.id;
+    console.log(request.body)
+    connection.query(`SELECT * from duragsrus_products WHERE productId=${insertedId}`, (error, results, fields) =>{
+        if (error) throw error;
+        response.send(JSON.stringify(results));
+      });
+});
 
 // //ADDING A NEW PRODUCT
 // app.post("/products", (request, response) => {
@@ -75,18 +80,14 @@
 // });
 
 // //DELETING PRODUCTS BY productId
-// app.delete("/products/:id", (request, response) => {
-//     let insertedId = request.params.id;
-//     Product.findByIdAndRemove(insertedId)
-//         .then(
-//             product => {
-//                 if (!product) {
-//                     return response.status(404).send("ID NOT FOUND")
-//                 }
-//                 response.send(product)
-//             }
-//         ).catch(error => response.status(400).send(error));
-// });
+app.delete("/products/:id", (request, response) => {
+    let insertedId = request.params.id;
+    console.log(request.body)
+    connection.query(`DELETE from duragsrus_products WHERE productId=${insertedId}`, (error, results, fields) =>{
+        if (error) throw error;
+        response.send(JSON.stringify(results));
+      });
+});
 
 // //-----------------------------------CONTACT REQUESTS-----------------------------------//
 // //SENDS ALL CONTACT INFORMATION
@@ -110,5 +111,5 @@
 //         )
 // });
 
-// app.listen(port);//ALLOW ME TO LISTEN TO API ON PORT I SET ABOVE
+app.listen(port);//ALLOW ME TO LISTEN TO API ON PORT I SET ABOVE
 
