@@ -51,57 +51,35 @@ INSERT INTO products (productId, title, product_description, price, productType,
 
 VALUES
     ('Baby Blue APE Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','designer','images/rags/1durags.jpg','In Stock'),
+('Pink APE Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','designer','images/rags/21durags.jpg','In Stock'),
+('CC White Durag','Easy. Breezy. Beautiful ... Silky',24.99,'durags','brand','images/ccwhite.jpeg','In Stock'),
+('Tiger Durag','Easy. Breezy. Beautiful ... Silky',26.99,'durags','designer','images/tiger.jpg','In Stock'),
 (
-    'Pink APE Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','designer','images/rags/21durags.jpg','In Stock'),
-(
-    'CC White Durag','Easy. Breezy. Beautiful ... Silky',24.99,'durags','brand','images/ccwhite.jpeg','In Stock'),
-(
-    'Tiger Durag','Easy. Breezy. Beautiful ... Silky',26.99,'durags','designer','images/tiger.jpg','In Stock'),
-(
-
-    'Louie Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','brand','images/louie.png','In Stock'),
-(
-    'Givenchy Durag','Easy. Breezy. Beautiful ... Silky',35.99,'durags','brand','images/colorful.jpg','In Stock'),
-(
-    'Balenciaga Shorts','Trunks!',45.99,'shorts','brand','images/balenciblack.jpg','In Stock'),
-(
-    'Three Fifty Shorts','Trunks!',79.99,'shorts','brand','images/threefifty.jpg','In Stock'),
-(
-    'Sevenhundred Shorts','Trunks!',79.99,'shorts','brand','images/sevenhun.jpg','In Stock'),
-(
-    'Louie x Supreme Shorts','Trunks!',99.99,'shorts','limited edition','images/sup.jpg','In Stock'),
-(
-    'Go Split Shorts','Trunks!',45.99,'shorts','designer','images/gosplit.jpg','In Stock'),
-(
-    'Play Polka Dot','Trunks!',19.99,'shorts','limited edition','images/play.jpg','In Stock');
+ 'Louie Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','brand','images/louie.png','In Stock'),
+('Givenchy Durag','Easy. Breezy. Beautiful ... Silky',35.99,'durags','brand','images/colorful.jpg','In Stock'),
+('Balenciaga Shorts','Trunks!',45.99,'shorts','brand','images/balenciblack.jpg','In Stock'),
+('Three Fifty Shorts','Trunks!',79.99,'shorts','brand','images/threefifty.jpg','In Stock'),
+('Sevenhundred Shorts','Trunks!',79.99,'shorts','brand','images/sevenhun.jpg','In Stock'),
+('Louie x Supreme Shorts','Trunks!',99.99,'shorts','limited edition','images/sup.jpg','In Stock'),
+('Go Split Shorts','Trunks!',45.99,'shorts','designer','images/gosplit.jpg','In Stock'),
+('Play Polka Dot','Trunks!',19.99,'shorts','limited edition','images/play.jpg','In Stock');
 
 
 
 
-INSERT INTO duragsrus_products (title, description, price, productType, productCategory, productImages, availability)
+INSERT INTO duragsrus_products (title, description, price, productType, productImages, availability)
 
 VALUES
-    ('Baby Blue APE Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','designer','images/rags/1durags.jpg',"Y"),
+    ('Baby Blue APE Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','images/rags/1durags.jpg',"Y"),
+('Pink APE Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','images/rags/21durags.jpg',"Y"),
+('CC White Durag','Easy. Breezy. Beautiful ... Silky',24.99,'durags','images/ccwhite.jpeg',"Y"),
+('Tiger Durag','Easy. Breezy. Beautiful ... Silky',26.99,'durags','images/tiger.jpg',"Y"),
 (
-    'Pink APE Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','designer','images/rags/21durags.jpg',"Y"),
-(
-    'CC White Durag','Easy. Breezy. Beautiful ... Silky',24.99,'durags','brand','images/ccwhite.jpeg',"Y"),
-(
-    'Tiger Durag','Easy. Breezy. Beautiful ... Silky',26.99,'durags','designer','images/tiger.jpg',"Y"),
-(
-
-    'Louie Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','brand','images/louie.png',"Y"),
-(
-    'Givenchy Durag','Easy. Breezy. Beautiful ... Silky',35.99,'durags','brand','images/colorful.jpg',"Y"),
-(
-    'Balenciaga Shorts','Trunks!',45.99,'shorts','brand','images/balenciblack.jpg',"Y"),
-(
-    'Three Fifty Shorts','Trunks!',79.99,'shorts','brand','images/threefifty.jpg',"Y"),
-(
-    'Sevenhundred Shorts','Trunks!',79.99,'shorts','brand','images/sevenhun.jpg',"Y"),
-(
-    'Louie x Supreme Shorts','Trunks!',99.99,'shorts','limited edition','images/sup.jpg',"Y"),
-(
-    'Go Split Shorts','Trunks!',45.99,'shorts','designer','images/gosplit.jpg',"Y"),
-(
-    'Play Polka Dot','Trunks!',19.99,'shorts','limited edition','images/play.jpg',"Y");
+ 'Louie Durag','Easy. Breezy. Beautiful ... Silky',29.99,'durags','images/louie.png',"Y"),
+('Givenchy Durag','Easy. Breezy. Beautiful ... Silky',35.99,'durags','images/colorful.jpg',"Y"),
+('Balenciaga Shorts','Trunks!',45.99,'shorts','images/balenciblack.jpg',"Y"),
+('Three Fifty Shorts','Trunks!',79.99,'shorts','images/threefifty.jpg',"Y"),
+('Sevenhundred Shorts','Trunks!',79.99,'shorts','images/sevenhun.jpg',"Y"),
+('Louie x Supreme Shorts','Trunks!',99.99,'shorts','images/sup.jpg',"Y"),
+('Go Split Shorts','Trunks!',45.99,'shorts','images/gosplit.jpg',"Y"),
+('Play Polka Dot','Trunks!',19.99,'shorts','images/play.jpg',"Y");
