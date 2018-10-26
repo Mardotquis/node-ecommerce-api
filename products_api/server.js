@@ -8,8 +8,8 @@ const express = require('express'),//HELPS CREATE AN EXPRESS API
      require('dotenv').config();
      const connection = mysql.createConnection({
         host     : 'road2hire.ninja',
-        user     : process.env.MYSQL_USER,
-        password : process.env.MYSQL_PASS,
+        user     : "r2hstudent",
+        password : "SbFaGzNgGIE8kfP",
         database : 'mmitchell'
       });
     //   r2hstudent
