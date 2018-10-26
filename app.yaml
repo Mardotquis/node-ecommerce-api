@@ -1,0 +1,7 @@
+# runtime: nodejs
+# env: flex
+# GAE runs on Node 8 by default
+runtime: nodejs8
+env_variables:
+  MYSQL_USER : "r2hstudent"
+  MYSQL_PASS : "SbFaGzNgGIE8kfP"

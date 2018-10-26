@@ -42,7 +42,7 @@ app.get("/products", (request, response) => {
 app.get("/products/:id", (request, response) => {
     let insertedId = request.params.id;
     // console.log(request.body)
-    connection.query(`SELECT * from duragsrus_products WHERE productId=${insertedId}`, (error, results, fields) =>{
+    connection.query(`SELECT * from duragsrus_products WHERE productId=${connection.escape(insertedId)}`, (error, results, fields) =>{
         if (error) throw error;
         response.send(JSON.stringify(results));
       });
@@ -70,7 +70,7 @@ app.put("/products/:id", (request, response) => {
      price = "${price}",
      productType = "${productType}",
      productImages = "${productImages}"
-     WHERE productId=${insertedId}`;
+     WHERE productId=${connection.escape(insertedId)}`;
     connection.query(sqlQuery, (error, results, fields) =>{
         if (error) throw error;
         console.log(request.body)
@@ -84,7 +84,7 @@ app.delete("/products/:id",
  (request, response) => {
     let insertedId = request.params.id;
     console.log(request.body)
-    connection.query(`DELETE from duragsrus_products WHERE productId=${parseInt(insertedId)}`, (error, results, fields) =>{
+    connection.query(`DELETE from duragsrus_products WHERE productId=${connection.escape(insertedId)}`, (error, results, fields) =>{
         if (error) throw error;
         response.send(JSON.stringify(results));
       });
