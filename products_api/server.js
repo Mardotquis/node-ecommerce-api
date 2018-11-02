@@ -34,11 +34,11 @@ app.get("/products", (request, response) => {
   });
 });
 
-// //GETTING PRODUCTS BY productId
+// //GETTING PRODUCTS BY _id
 app.get("/products/:id", (request, response) => {
     let insertedId = request.params.id;
     // console.log(request.body)
-    connection.query(`SELECT * from duragsrus_products WHERE productId=${connection.escape(insertedId)}`, (error, results, fields) =>{
+    connection.query(`SELECT * from duragsrus_products WHERE _id=${connection.escape(insertedId)}`, (error, results, fields) =>{
         if (error) throw error;
         response.send(JSON.stringify(results));
       });
@@ -59,14 +59,14 @@ app.post("/products", (request, response) => {
 //UPDATE A PRODUCT
 app.put("/products/:id", (request, response) => {
     let insertedId = request.params.id;
-    const { title, description, price, productType, productImages, productId } = request.body;
+    const { title, description, price, productType, productImages, _id } = request.body;
     let sqlQuery = `UPDATE duragsrus_products
     SET title = "${title}",
      description = "${description}",
      price = "${price}",
      productType = "${productType}",
      productImages = "${productImages}"
-     WHERE productId=${connection.escape(insertedId)}`;
+     WHERE _id=${connection.escape(insertedId)}`;
     connection.query(sqlQuery, (error, results, fields) =>{
         if (error) throw error;
         console.log(request.body)
@@ -75,12 +75,12 @@ app.put("/products/:id", (request, response) => {
       });
 });
 
-//DELETING PRODUCTS BY productId
+//DELETING PRODUCTS BY _id
 app.delete("/products/:id",
  (request, response) => {
     let insertedId = request.params.id;
     console.log(request.body)
-    connection.query(`DELETE from duragsrus_products WHERE productId=${connection.escape(insertedId)}`, (error, results, fields) =>{
+    connection.query(`DELETE from duragsrus_products WHERE _id=${connection.escape(insertedId)}`, (error, results, fields) =>{
         if (error) throw error;
         response.send(JSON.stringify(results));
       });
