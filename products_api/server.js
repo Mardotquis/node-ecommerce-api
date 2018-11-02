@@ -8,14 +8,10 @@ const express = require('express'),//HELPS CREATE AN EXPRESS API
      require('dotenv').config();
      const connection = mysql.createConnection({
         host     : 'road2hire.ninja',
-        user     : "r2hstudent",
-        password : process.env.MYSQLUSER,
-        database : process.env.MYSQLPASS
+        user     : process.env.MYSQLUSER,
+        password : process.env.MYSQLPASS,
+        database : 'mmitchell'
       });
-    //   r2hstudent
-    //   SbFaGzNgGIE8kfP
-
-
 
 console.log(`SERVER STARTED, LISTENING ON PORT ${port}`);
 const app = express();//SETTING UP THE EXPRESS API
